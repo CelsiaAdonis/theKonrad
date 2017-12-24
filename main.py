@@ -65,7 +65,7 @@ class SetupTrialScreen(Screen):
 
 class RunTrialScreen(Screen):
     def on_enter(self):
-        self.lbl.text = "Stimulus is playing!"
+        self.lbl.text = "Does the first or second stimulus sound most similar to the target?"
         play_stim(App.get_running_app().stimulus)
 
 
@@ -78,7 +78,7 @@ class ResponseScreen(Screen):
         self.lbl.value = 1
         App.get_running_app().response_made = False
 
-    def slide_response(self, *args):
+    def save_response(self, *args):
         App.get_running_app().response = round(args[1], 1)
         App.get_running_app().response_made = True
 
@@ -92,7 +92,7 @@ class ResponseScreen(Screen):
             App.get_running_app().response_made = False
             stimulus = stim_master[trial-1]
             #condition, key, transposition = extract_stim_info(stimulus)
-            data_row = [part_num, trial, condition, key, transposition, stimulus, response]
+            data_row = [part_num, trial, stimulus, response]
 
             with open(App.get_running_app().csv_name, 'a', newline='') as csvfile:
                 rowwriter = csv.writer(csvfile, delimiter=',',
@@ -116,14 +116,14 @@ class MyScreenManager(ScreenManager):
     pass
 
 
-root_widget = Builder.load_file("main.kv")
+root_widget = Builder.load_file("the_konrad.kv")
 
 
 class ScreenManagerApp(App):
     trial = NumericProperty(1)  # keeps track of current trial #
     trials_to_run = NumericProperty(10)
     stimulus = StringProperty('default')  # Stimulus file name
-    response = NumericProperty(0)  # Participant Response, from Slider
+    response = NumericProperty(0)  # Participant Response via button press
     response_made = ObjectProperty(False)  # checks if response has been made
 
     stim_master = ObjectProperty(stimuli_list())

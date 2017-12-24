@@ -1,0 +1,171 @@
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+MyScreenManager:
+    transition: NoTransition()
+    IntroScreen:
+    SetupTrialScreen:
+    RunTrialScreen:
+    ResponseScreen:
+    ExitScreen:
+
+<IntroScreen>:
+    name: 'intro'
+
+    part_num: _part_num
+    trials_to_run: _trials_to_run
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Welcome to the experiment! Please put in Participant # and trials to run.'
+            font_size: 20
+        BoxLayout:
+            height: "50dp"
+            size_hint_y: None
+            Label:
+                text: "Part Num"
+                size_hint_x: 20
+            TextInput:
+                id: _part_num
+                text: '1'
+                size_hint_x: 60
+            Label:
+                size_hint_x: 20
+        Label:
+            height: "20dp"
+            size_hint_y: None
+
+        BoxLayout:
+            height: "50dp"
+            size_hint_y: None
+            Label:
+                text: "Trials"
+                size_hint_x: 20
+            TextInput:
+                id: _trials_to_run
+                text: '48'
+                size_hint_x: 60
+            Label:
+                size_hint_x: 20
+        Label:
+            height: "20dp"
+            size_hint_y: None
+
+        BoxLayout:
+            height: "70dp"
+            size_hint_y: None
+            Label:
+                size_hint_x: 30
+            Button:
+                size_hint_x: 40
+                text: 'Set up Trial'
+                font_size: 20
+                on_release: root.button_response()
+            Label:
+                size_hint_x: 30
+
+<SetupTrialScreen>:
+    name: 'setup'
+    lbl: stimulus_label
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: stimulus_label
+            text: 'Does the first or second stimulus sound most similar to the target?'
+            font_size: 20
+        BoxLayout:
+            height: "50dp"
+            size_hint_y: None
+            Label:
+                size_hint_x: 30
+            Button:
+                siz_hint_x: 40
+                text: 'Run Trial'
+                font_size: 20
+                on_release: root.go_to_run()
+            Label:
+                size_hint_x: 30
+        Label:
+            height: "40dp"
+            size_hint_y: None
+
+<RunTrialScreen>:
+    name: 'run'
+    lbl: message
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: message
+            text: 'Does the first or second stimulus sound most similar to the target?'
+            font_size: 20
+        BoxLayout:
+            height: "50dp"
+            size_hint_y: None
+            Label:
+                size_hint_x: 30
+            Button:
+                size_hint_x: 40
+                text: 'Continue once finished'
+                font_size: 20
+                on_release: app.root.current = 'response'
+            Label:
+                size_hint_x: 30
+        Label:
+            height: "40dp"
+            size_hint_y: None
+
+<ResponseScreen>:
+    name: 'response'
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Does the first or second stimulus sound most similar to the target?"
+            font_size: 20
+        BoxLayout:
+            height: "50dp"
+            size_hint_y: None
+            Label:
+                size_hint_x: 25
+            Button:
+                text: "first"
+                size_hint_x: 20
+                on_release: root.save_response(1)
+            Label:
+                size_hint_x: 10
+            Button:
+                text: "second"
+                size_hint_x: 20
+                on_release: root.save_response(2)
+            Label:
+                size_hint_x: 25
+        Label:
+            text: " "
+            height:"50dp"
+            size_hint_y: None
+
+
+<ExitScreen>:
+    name: 'exit'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Thank you for participating in our experiment! Please call experimenter.'
+            font_size: 20
+        BoxLayout:
+            height: "50dp"
+            size_hint_y: None
+            Label:
+                size_hint_x: 30
+            Button:
+                size_hint_x: 40
+                text: 'Exit'
+                font_size: 20
+                on_release: app.stop()
+            Label:
+                size_hint_x: 30
+        Label:
+            height: "40dp"
+            size_hint_y: None
