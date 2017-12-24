@@ -1,6 +1,16 @@
 import os
 import random
 
+def play_stim(stimulus):
+    from kivy.core.audio import audio_pygame
+    path = 'stimuli/'+stimulus
+
+    #audio_pygame.mixer.music.load(path)
+    #audio_pygame.mixer.music.play()
+
+    #while audio_pygame.mixer.music.get_busy():
+        #continue
+
 def stimuli_list():
 
     #Read a folder of stimuli
@@ -53,6 +63,6 @@ def stimuli_list():
     return experiment_order
                             
 def extract_stim_info(stimulus):
-    stimulus = stimulus.strip('.mid')
+    stimulus = stimulus.strip('.wav')
     stim_parts = stimulus.split('_')
     return stim_parts

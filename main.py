@@ -18,7 +18,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 import csv
 import time
 
-from stimuli_finder import *  # loads functions for experiment
+from stimuli_list import *  # loads functions for experiment
 
 
 # # Defining multiple screens to be used throughout experiment.
