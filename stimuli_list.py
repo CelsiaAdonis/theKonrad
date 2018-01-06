@@ -19,7 +19,6 @@ def stimuli_list():
     experiment_order = []
     target = []
     D7 = []
-    voicing = []
     mode = []
     order = []
     key = []
@@ -32,30 +31,33 @@ def stimuli_list():
             target.append(stim_parts[0])
         if stim_parts[1] not in D7:
             D7.append(stim_parts[1])
-        if stim_parts[2] not in voicing:
-            voicing.append(stim_parts[2])
-        if stim_parts[3] not in mode:
-            mode.append(stim_parts[3])
-        if stim_parts[4] not in order:
-            order.append(stim_parts[4])
-        if stim_parts[5] not in key:
-            key.append(stim_parts[5])
+        if stim_parts[2] not in mode:
+            mode.append(stim_parts[2])
+        if stim_parts[3] not in order:
+            order.append(stim_parts[3])
+        if stim_parts[4] not in key:
+            key.append(stim_parts[4])
 
-    key = key * 18
+    #Make a list of keys that matches the amount of combinations you have. Here we have 120 combos and 4 keys so: 120/4=30
+    key = key * 30
     random.shuffle(key)
+
+    #Produce a stimuli list of all combinations of your factors and tack on a random key (but keep an equal number of each key)
+    #Also, check to make sure the stimuli in our list are actually in the folder.
+    placeholder = 0
 
     for targ in target:
         for d7 in D7:
-            for voice in voicing:
-                for mod in mode:
-                    for orde in order:
-                        for k in key:
-                            current_combo = targ + '_' + d7 + '_' + voice + '_' + mod + '_' + orde + '_' + k + '.wav'
+            for mod in mode:
+                for orde in order:
+                    current_combo = targ + '_' + d7 + '_' + mod + '_' + orde + '_' + key[placeholder] + '.wav'
+                    placeholder += 1
 
-                            if current_combo not in stimulus_files:
-                                print("% not in folder" % current_combo)
-                            else: experiment_order.append(current_combo)
+                    if current_combo not in stimulus_files:
+                        print("% not in folder" % current_combo)
+                    else: experiment_order.append(current_combo)
 
+    #Shuffle the list of stimuli
     shuffle_numb = random.randint(1,9)
     for i in range(shuffle_numb):
         random.shuffle(experiment_order)
