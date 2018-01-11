@@ -52,7 +52,7 @@ class SetupTrialScreen(Screen):
         # perform functions
         stimulus = stim_master[trial-1]
 
-        self.lbl.text = "Trial #" + str(trial) + ", stimulus = " + str(stimulus)
+        self.lbl.text = "Does the first or second stimulus sound most similar to the target?"
 
         # upload local variables into properties
         App.get_running_app().trial = trial
@@ -75,12 +75,13 @@ class ResponseScreen(Screen):
         super(ResponseScreen, self).__init__(**kwargs)
 
     def on_pre_enter(self):
-        self.lbl.value = 1
+        #self.lbl.value = 1
         App.get_running_app().response_made = False
 
     def save_response(self, *args):
-        App.get_running_app().response = round(args[1], 1)
+        App.get_running_app().response = args[0]
         App.get_running_app().response_made = True
+        self.gotoExit()
 
     def gotoExit(self):
         trial = App.get_running_app().trial
