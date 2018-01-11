@@ -48,7 +48,7 @@ def stimuli_list():
             key.append(stim_parts[4])
 
     #Make a list of keys that matches the amount of combinations you have. Here we have 120 combos and 4 keys so: 120/4=30
-    key = key * 30 * 2
+    key = key * 30
     random.shuffle(key)
 
     #Produce a stimuli list of all combinations of your factors and tack on a random key (but keep an equal number of each key)
